@@ -6,7 +6,7 @@ type Simulation = {
 	render: () => void
 };
 
-const WASM_FILENAME = "shapebox.wasm";
+const WASM_FILENAME = "bin/wasm/shapebox.wasm";
 
 const noWasmErrorMessage = 
 	"Your browser does not support\n" +

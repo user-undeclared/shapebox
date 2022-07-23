@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const WASM_FILENAME = "shapebox.wasm";
+const WASM_FILENAME = "bin/wasm/shapebox.wasm";
 const noWasmErrorMessage = "Your browser does not support\n" +
     "WebAssembly, which is needed\n" +
     "to run this program. Sorry :(";

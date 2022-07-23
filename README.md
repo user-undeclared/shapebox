@@ -1,6 +1,6 @@
 # ShapeBox
 
-A simple game-like program made to experiment with some concepts I haven't tried before, mainly the seperation of program logic and rendering code. This allows the same application to be compiled to multiple platforms, due to all rendering calls, input calls, and other such calls being defined in an API that is then implemented on a per-platform basis.
+A simple game-like program thing made to experiment with some concepts I haven't tried before, mainly the seperation of program logic and rendering code. This allows the same application to be compiled to multiple platforms, due to all rendering calls, input calls, and other such calls being defined in an API that is then implemented on a per-platform basis.
 
 ## Supported targets
 
@@ -18,7 +18,7 @@ Building the native version requires these tools:
 ...and these libraries:
 * SDL2
 
-An unoptimized version of the native program can be built my running `make debug` from the command-line. For an optimized version of the program, run `make release`
+An unoptimized version of the native program can be built by running `make debug` from the command-line. For an optimized version of the program, run `make release`
 
 ### Web
 
@@ -30,4 +30,4 @@ Re-building the web version requires these tools:
 * make
 * tsc
 
-To re-build it, run `make wasm`
+To re-build it, run `make wasm` from the command-line

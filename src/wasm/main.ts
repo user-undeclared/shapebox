@@ -15,7 +15,7 @@ const noWasmErrorMessage =
 const jsErrorMessage =
 	"Something broke within the\n" + 
 	"internal code of this webpage.\n" + 
-	"Please let the developer know";
+	"Please let me know";
 const loadingMessage =
 	"Loading the program...";
 
@@ -108,15 +108,46 @@ async function main() {
 		resizeCanvas(screenCanvas); 
 	}
 
+	function averageMousePosition(event: TouchEvent) {
+		const sum = { x: 0, y: 0 };
+		for(const touch of event.targetTouches) {
+			sum.x += touch.clientX;
+			sum.y += touch.clientY;
+		}
+		mousePosition.x = sum.x / event.targetTouches.length,
+		mousePosition.y = sum.y / event.targetTouches.length
+	}
+
 	window.addEventListener("resize", windowResize);
-	window.addEventListener("mousemove", function(event) {
+	window.addEventListener("mousemove", function(event: MouseEvent) {
 		mousePosition.x = event.clientX;
 		mousePosition.y = event.clientY;
 	});
-	window.addEventListener("mousedown", function(event) {
+	window.addEventListener("mousedown", function(event: MouseEvent) {
 		simulation.mouseDown(event.clientX, event.clientY);
 	});
 	window.addEventListener("mouseup", simulation.mouseUp);
+	window.addEventListener("touchstart", function(event: TouchEvent) {
+		if(event.targetTouches.length == 1) {
+			const touch = event.targetTouches[0]!;
+			simulation.mouseDown(touch.clientX, touch.clientY);
+		}
+		else {
+			averageMousePosition(event);
+		}
+
+	});
+	window.addEventListener("touchmove", function(event: TouchEvent) {
+		averageMousePosition(event);
+	});
+	window.addEventListener("touchend", function(event: TouchEvent) {
+		if(event.targetTouches.length == 0) {
+			simulation.mouseUp();
+		}
+		else {
+			averageMousePosition(event);
+		}
+	});
 
 	document.body.removeChild(loadingMessageBox);
 	windowResize();

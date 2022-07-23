@@ -14,7 +14,7 @@ const noWasmErrorMessage = "Your browser does not support\n" +
     "to run this program. Sorry :(";
 const jsErrorMessage = "Something broke within the\n" +
     "internal code of this webpage.\n" +
-    "Please let the developer know";
+    "Please let me know";
 const loadingMessage = "Loading the program...";
 function resizeCanvas(canvas) {
     canvas.width = window.innerWidth;
@@ -90,6 +90,15 @@ function main() {
             resizeCanvas(drawCanvas);
             resizeCanvas(screenCanvas);
         }
+        function averageMousePosition(event) {
+            const sum = { x: 0, y: 0 };
+            for (const touch of event.targetTouches) {
+                sum.x += touch.clientX;
+                sum.y += touch.clientY;
+            }
+            mousePosition.x = sum.x / event.targetTouches.length,
+                mousePosition.y = sum.y / event.targetTouches.length;
+        }
         window.addEventListener("resize", windowResize);
         window.addEventListener("mousemove", function (event) {
             mousePosition.x = event.clientX;
@@ -99,6 +108,26 @@ function main() {
             simulation.mouseDown(event.clientX, event.clientY);
         });
         window.addEventListener("mouseup", simulation.mouseUp);
+        window.addEventListener("touchstart", function (event) {
+            if (event.targetTouches.length == 1) {
+                const touch = event.targetTouches[0];
+                simulation.mouseDown(touch.clientX, touch.clientY);
+            }
+            else {
+                averageMousePosition(event);
+            }
+        });
+        window.addEventListener("touchmove", function (event) {
+            averageMousePosition(event);
+        });
+        window.addEventListener("touchend", function (event) {
+            if (event.targetTouches.length == 0) {
+                simulation.mouseUp();
+            }
+            else {
+                averageMousePosition(event);
+            }
+        });
         document.body.removeChild(loadingMessageBox);
         windowResize();
         runSimulation(screenCanvas, simulation);

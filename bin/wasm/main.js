@@ -109,6 +109,7 @@ function main() {
         });
         window.addEventListener("mouseup", simulation.mouseUp);
         window.addEventListener("touchstart", function (event) {
+            event.preventDefault();
             if (event.targetTouches.length == 1) {
                 const touch = event.targetTouches[0];
                 simulation.mouseDown(touch.clientX, touch.clientY);
@@ -118,9 +119,11 @@ function main() {
             }
         });
         window.addEventListener("touchmove", function (event) {
+            event.preventDefault();
             averageMousePosition(event);
         });
         window.addEventListener("touchend", function (event) {
+            event.preventDefault();
             if (event.targetTouches.length == 0) {
                 simulation.mouseUp();
             }

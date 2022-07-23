@@ -2,11 +2,11 @@
 
 A simple game-like program made to experiment with some concepts I haven't tried before, mainly the seperation of program logic and rendering code. This allows the same application to be compiled to multiple platforms, due to all rendering calls, input calls, and other such calls being defined in an API that is then implemented on a per-platform basis.
 
-# Supported targets
+## Supported targets
 
 As of now, there are implemtations for both a native version based on [SDL2](https://www.libsdl.org/), and a web version through [WebAssembly](https://webassembly.org/) and [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5/) + [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/)
 
-# Building
+## Building
 
 ### Native
 

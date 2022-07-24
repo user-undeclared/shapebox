@@ -1,15 +1,10 @@
 #ifndef _VEC2_HPP
 #define _VEC2_HPP
 
+#include "../clamp.hpp"
+
 template <typename T>
 class Vec2 {
-private:
-	static T clamp(T value, T low, T high) {
-		if(value < low) return low;
-		if(value > high) return high;
-		return value;
-	}
-
 public:
 	T x;
 	T y;
@@ -45,8 +40,8 @@ public:
 
 	Vec2 clamp(Vec2 low, Vec2 high) {
 		return Vec2(
-			clamp(this->x, low.x, high.x),
-			clamp(this->y, low.y, high.y)
+			::clamp(this->x, low.x, high.x),
+			::clamp(this->y, low.y, high.y)
 		);
 	}
 };

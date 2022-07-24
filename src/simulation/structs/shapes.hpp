@@ -27,24 +27,17 @@ struct Square {
 		   	&& (y >= this->position.y && y < this->position.y + this->size);
 	}
 
-	inline float y(void) {
-		return this->position.y;
-	}
-	inline float x(void) {
-		return this->position.x;
-	}
-
-	inline float setX(float x) {
+	inline float moveX(float x) {
 		this->pastPosition.x = this->position.x;
 		this->position.x = x;
 		return x;
 	}
-	inline float setY(float y) {
+	inline float moveY(float y) {
 		this->pastPosition.y = this->position.y;
 		this->position.y = y;
 		return y;
 	}
-	inline Vec2<float> setPosition(Vec2<float> position) {
+	inline Vec2<float> movePosition(Vec2<float> position) {
 		this->pastPosition = this->position;
 		this->position = position;
 		return position;

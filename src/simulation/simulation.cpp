@@ -8,6 +8,7 @@
 #define SQUARE_SIZE 32
 #define GRAVITY 32.0f
 #define WALL_FRICTION 4
+#define WALL_BOUMCYNESS 8
 
 Square squareBuffer[MAX_SQUARES];
 const Color clearColor { 0x00, 0x00, 0x00, 0xff };
@@ -61,13 +62,13 @@ extern "C" namespace simulation {
 			}
 
 			if(square.position.y < 0) {
-				square.velocity.y = 0;
-				square.position.y = 0;
+				square.velocity.y = -square.velocity.y / WALL_BOUMCYNESS;
 				square.velocity.x -= square.velocity.x / WALL_FRICTION;
+				square.position.y = 0;
 			}
 
 			if(square.position.x > maxX || square.position.x < 0) {
-				square.velocity.x = 0;
+				square.velocity.x = -square.velocity.x / WALL_BOUMCYNESS;
 				square.velocity.y -= square.velocity.y / WALL_FRICTION;
 				square.position.x = clamp<float>(square.position.x, 0, maxX);
 			}

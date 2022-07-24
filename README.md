@@ -22,7 +22,7 @@ An unoptimized version of the native program can be built by running `make debug
 
 ### Web
 
-As this repository will host the on-line version of the application, the web version is already build and can be found under [bin/](bin/)
+As this repository currently hosts the web version of the application, the on-line version is already built and can be found under [bin/](bin/). To see the on-line version in action, visit [user-undeclared.github.io/shapebox/](https://user-undeclared.github.io/shapebox/)
 
 Re-building the web version requires these tools:
 * clang

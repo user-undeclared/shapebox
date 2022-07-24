@@ -3,10 +3,12 @@
 
 extern "C" namespace simulation {
 	void start(unsigned screenWidth, unsigned screenHeight);
-	void mouseDown(int mouseX, int mouseY);
-	void mouseUp(void);
 	void update(float deltaTime);
 	void render(void);
+
+	void mouseDown(int mouseX, int mouseY);
+	void mouseUp(void);
+	void resize(unsigned newWidth, unsigned newHeight);
 }
 
 #endif

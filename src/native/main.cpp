@@ -28,7 +28,7 @@ int initializeSDL(void)
 		return -1;
 	}
 
-	window = SDL_CreateWindow(PROGRAM_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+	window = SDL_CreateWindow(PROGRAM_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
 	if(window == NULL) {
 		SDL_Quit();
 		return -1;
@@ -86,6 +86,11 @@ int main(void)
 
 			case SDL_MOUSEBUTTONUP:
 				simulation::mouseUp();
+				break;
+
+			case SDL_WINDOWEVENT:
+				if(event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+					simulation::resize(event.window.data1, event.window.data2);
 				break;
 			}
 		}

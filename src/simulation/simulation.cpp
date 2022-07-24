@@ -4,17 +4,16 @@
 #include "simulation.hpp"
 
 #define MAX_SQUARES 16
+#define SQUARE_SIZE 32
+#define GRAVITY 32.0f
+
+Square squareBuffer[MAX_SQUARES];
+const Color clearColor { 0x00, 0x00, 0x00, 0xff };
 
 unsigned screenWidth;
 unsigned screenHeight;
-
-const Color clearColor { 0x00, 0x00, 0x00, 0xff };
-const float gravity = 32.0f;
-const unsigned squareSize = 32;
-
 int lastSquare;
 
-Square squareBuffer[MAX_SQUARES];
 int addSquare(Vec2<float> position, float size, Color color) {
 	for(unsigned index = 0; index < MAX_SQUARES; index++) {
 		Square& square = squareBuffer[index];
@@ -35,26 +34,6 @@ extern "C" namespace simulation {
 		screenHeight = height;
 	}
 
-	void mouseDown(int mouseX, int mouseY) {
-		for(unsigned index = 0; index < MAX_SQUARES; index++) {
-			Square& square = squareBuffer[index];
-			if(square.collides(mouseX, mouseY)) {
-				square.released = false;
-				lastSquare = index;
-				return;
-			}
-		}
-
-		lastSquare = addSquare(Vec2<float>(mouseX, mouseY) - squareSize / 2, squareSize, Color { 0xff, 0x00, 0x00, 0xff });
-	}
-
-	void mouseUp(void) {
-		if(lastSquare < 0) return;
-		Square& square = squareBuffer[lastSquare];
-		square.released = true;
-		square.velocity = square.velocity + ((square.position - square.pastPosition) * 32.0f);
-	}
-
 	void update(float deltaTime) {
 		for(unsigned index = 0; index < MAX_SQUARES; index++) {
 			Square& square = squareBuffer[index];
@@ -69,11 +48,12 @@ extern "C" namespace simulation {
 				continue;
 			}
 
-			square.velocity.y += gravity;
+			square.velocity.y += GRAVITY;
 			square.setPosition(square.position + (square.velocity * deltaTime));
 
 			if(square.y() > screenHeight) {
 				square.active = false;
+				square.position = Vec2<float>(-SQUARE_SIZE, -SQUARE_SIZE);
 				continue;
 			}
 
@@ -108,5 +88,30 @@ extern "C" namespace simulation {
 		}
 
 		platform::renderAll();
+	}
+
+	void mouseDown(int mouseX, int mouseY) {
+		for(unsigned index = 0; index < MAX_SQUARES; index++) {
+			Square& square = squareBuffer[index];
+			if(square.collides(mouseX, mouseY)) {
+				square.released = false;
+				lastSquare = index;
+				return;
+			}
+		}
+
+		lastSquare = addSquare(Vec2<float>(mouseX, mouseY) - SQUARE_SIZE / 2, SQUARE_SIZE, Color { 0xff, 0x00, 0x00, 0xff });
+	}
+
+	void mouseUp(void) {
+		if(lastSquare < 0) return;
+		Square& square = squareBuffer[lastSquare];
+		square.released = true;
+		square.velocity = square.velocity + ((square.position - square.pastPosition) * 32.0f);
+	}
+
+	void resize(unsigned newWidth, unsigned newHeight) {
+		screenWidth = newWidth;
+		screenHeight = newHeight;
 	}
 }

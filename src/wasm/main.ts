@@ -9,7 +9,7 @@ type Simulation = {
 
 type Vec2 = { x: number, y: number };
 
-const WASM_FILENAME = "bin/wasm/shapebox.wasm";
+const WASM_FILENAME = "bin/shapebox.wasm";
 
 const noWasmMessageBox = createMessageBox(
 	"Your browser does not support\n" +

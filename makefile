@@ -11,18 +11,17 @@ CORE_SRC=$(shell find src/simulation/ -type f -iname "*.c*")
 NATIVE_SRC=$(shell find src/native/ -type f -iname "*.c*")
 WASM_SRC=src/wasm/**.ts
 
-BIN_NATIVE=bin
-BIN_WASM=bin/wasm
+BIN=bin
 
 .PHONY: all
 all: debug wasm release
 
 debug: $(CORE_SRC) $(NATIVE_SRC)
-	$(CXX) $(CFLAGS) -o $(BIN_NATIVE)/$(DEBUG_NAME) $^ -lSDL2
+	$(CXX) $(CFLAGS) -o $(BIN)/$(DEBUG_NAME) $^ -lSDL2
 
 wasm: $(CORE_SRC) $(WASM_SRC)
 	tsc -p src/wasm/
-	$(CXX) $(CFLAGS) $(WASM_FLAGS) -o $(BIN_WASM)/$(RELEASE_NAME).wasm $(CORE_SRC)
+	$(CXX) $(CFLAGS) $(WASM_FLAGS) -o $(BIN)/$(RELEASE_NAME).wasm $(CORE_SRC)
 
 release: $(CORE_SRC) $(NATIVE_SRC)
-	$(CXX) $(CFLAGS) $(RELEASE_FLAGS) -o $(BIN_NATIVE)/$(RELEASE_NAME) $^ -lSDL2
+	$(CXX) $(CFLAGS) $(RELEASE_FLAGS) -o $(BIN)/$(RELEASE_NAME) $^ -lSDL2

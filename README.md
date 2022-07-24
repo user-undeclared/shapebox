@@ -4,7 +4,7 @@ A simple game-like program thing made to experiment with some concepts I haven't
 
 ## Supported targets
 
-As of now, there are implemtations for both a native version based on [SDL2](https://www.libsdl.org/), and a web version through [WebAssembly](https://webassembly.org/) and [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5/) + [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/)
+As of now, there are implemtations for both a native version based on [SDL2](https://www.libsdl.org/), and a web version through [WebAssembly](https://webassembly.org/) and [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5/)+[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/)
 
 ## Building
 
@@ -22,7 +22,7 @@ An unoptimized version of the native program can be built by running `make debug
 
 ### Web
 
-As this repository will host the on-line version of the application, the web version is already build and can be found under [bin/wasm/](bin/wasm/)
+As this repository will host the on-line version of the application, the web version is already build and can be found under [bin/](bin/)
 
 Re-building the web version requires these tools:
 * clang
